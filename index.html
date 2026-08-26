@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ問題 - てづくり横丁</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .quiz-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .quiz-badge {
+            display: inline-block;
+            background-color: #ff8c00;
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: bold;
+            line-height: 1.6;
+            color: #222;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .answer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .answer-input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+
+        .answer-input:focus {
+            border-color: #ff8c00;
+            outline: none;
+        }
+
+        .submit-button {
+            background-color: #2e8b57;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-button:hover {
+            background-color: #246b43;
+        }
+
+        /* 正解・不正解のメッセージ表示スタイル */
+        .result-message {
+            margin-top: 20px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            min-height: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .result-message.correct {
+            color: #2e8b57;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+        }
+
+        .result-message.incorrect {
+            color: #d32f2f;
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="quiz-card">
+        <span class="quiz-badge">問題</span>
+        <h1 class="question-text">てづくり横丁のブースの数は全部でいくつですか？</h1>
+        
+        <form class="answer-form" id="quizForm" onsubmit="checkAnswer(event)">
+            <input type="number" class="answer-input" id="boothInput" placeholder="数を入力してください（例: 100）" required min="0">
+            <button type="submit" class="submit-button">回答する</button>
+        </form>
+
+        <!-- 結果表示領域 -->
+        <div id="result" class="result-message" aria-live="polite"></div>
+    </main>
+
+    <script>
+        function checkAnswer(event) {
+            // ページリロードを防止
+            event.preventDefault();
+
+            const inputVal = document.getElementById('boothInput').value.trim();
+            const resultDiv = document.getElementById('result');
+
+            // クラスをリセット
+            resultDiv.className = 'result-message';
+
+            // 判定処理
+            if (inputVal === '270') {
+                resultDiv.textContent = 'せいかい!';
+                resultDiv.classList.add('correct');
+            } else {
+                resultDiv.textContent = 'ざんねん!';
+                resultDiv.classList.add('incorrect');
+            }
+        }
+    </script>
+
+</body>
+</html>
